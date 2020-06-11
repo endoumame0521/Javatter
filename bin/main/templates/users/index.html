@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ユーザー一覧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th>生年月日</th>
+            <th>位置情報</th>
+            <th>自己紹介</th>
+            <th>Email</th>
+            <th>ステータス</th>
+            <th>登録日時</th>
+            <th>更新日時</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.birthday}"></td>
+            <td th:text="${user.address}"></td>
+            <td th:text="${user.introduction}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.status}"></td>
+            <td th:text="${user.createdAt}"></td>
+            <td th:text="${user.updatedAt}"></td>
+        </tr>
+    </table>
+</body>
+
+</html>
