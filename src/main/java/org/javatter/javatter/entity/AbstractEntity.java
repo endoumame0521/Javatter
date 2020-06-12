@@ -1,46 +1,42 @@
 package org.javatter.javatter.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 // Entityクラスのスーパークラスを宣言
 @MappedSuperclass
-// Getterを宣言
-@Getter
-// Setterを宣言
-@Setter
+@Data
 public class AbstractEntity {
-    @Temporal(TemporalType.TIMESTAMP)
+    // Date型からLocalDateTime型に変更
+    // @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    // Date型からLocalDateTime型に変更
+    // @Temporal(TemporalType.TIMESTAMP)
     // @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT
     // CURRENT_TIMESTAMP")
     @Column(nullable = false)
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     // データベースにレコード登録時、登録日時と更新日時を現在時刻にする
     @PrePersist
     public void prePersist() {
-        setCreatedAt(new Date());
-        setUpdatedAt(new Date());
+        setCreatedAt(LocalDateTime.now());
+        setUpdatedAt(LocalDateTime.now());
     }
 
     // MySQL側 に TIMESTAMP DEFAULT CURRENT_TIMESTAMPがあれば不要
     // データベースにレコード更新時、更新日時を現在時刻にする
     @PreUpdate
     public void preUpdate() {
-        setUpdatedAt(new Date());
+        setUpdatedAt(LocalDateTime.now());
     }
 }
 

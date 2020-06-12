@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ユーザー登録</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <form th:object="${userUpdateForm}" th:action="@{/users/{id}(id=*{id})}" th:method="put">
+        <table>
+            <tr>
+                <th>名前</th>
+                <td><input type="text" th:field="*{name}"></td>
+            </tr>
+            <tr>
+                <th>生年月日</th>
+                <td>
+                    <select th:field="*{birthYear}">
+                        <option th:each="i : ${#numbers.sequence(1940, 2010)}" th:value="${i}" th:text="${i}">
+                        </option>
+                    </select>年
+                    <select th:field="*{birthMonth}">
+                        <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}">
+                        </option>
+                    </select>月
+                    <select th:field="*{birthDay}">
+                        <option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}" th:text="${i}">
+                        </option>
+                    </select>日
+                </td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><input type="text" th:field="*{email}"></td>
+            </tr>
+            <tr>
+                <th>パスワード</th>
+                <td><input type="text" th:field="*{encryptedPassword}"></td>
+            </tr>
+            <tr>
+                <th>プロフィール画像</th>
+                <td><input type="text" th:field="*{profileImage}"></td>
+            </tr>
+            </tr>
+            <tr>
+                <th>背景画像</th>
+                <td><input type="text" th:field="*{backgroundImage}"></td>
+            </tr>
+            </tr>
+            <tr>
+                <th>自己紹介文</th>
+                <td><input type="text" th:field="*{introduction}"></td>
+            </tr>
+            </tr>
+            <tr>
+                <th>位置情報</th>
+                <td><input type="text" th:field="*{address}"></td>
+            </tr>
+            <tr>
+                <th>WEBサイト</th>
+                <td><input type="text" th:field="*{webSite}"></td>
+            </tr>
+            <tr>
+                <th>ステータス</th>
+                <td><input type="text" th:field="*{status}"></td>
+            </tr>
+        </table>
+        <input type="submit" value="更新">
+        <a th:href="@{/users}">一覧画面へ戻る</a>
+    </form>
+</body>
+
+</html>
