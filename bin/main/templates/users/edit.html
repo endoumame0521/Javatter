@@ -16,15 +16,15 @@
             <tr>
                 <th>生年月日</th>
                 <td>
-                    <select th:field="*{birthYear}">
+                    <select th:field="*{birthY}">
                         <option th:each="i : ${#numbers.sequence(1940, 2010)}" th:value="${i}" th:text="${i}">
                         </option>
                     </select>年
-                    <select th:field="*{birthMonth}">
+                    <select th:field="*{birthM}">
                         <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}">
                         </option>
                     </select>月
-                    <select th:field="*{birthDay}">
+                    <select th:field="*{birthD}">
                         <option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}" th:text="${i}">
                         </option>
                     </select>日
