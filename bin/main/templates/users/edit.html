@@ -12,6 +12,7 @@
             <tr>
                 <th>名前</th>
                 <td><input type="text" th:field="*{name}"></td>
+                <td><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span></td>
             </tr>
             <tr>
                 <th>生年月日</th>
@@ -20,47 +21,63 @@
                         <option th:each="i : ${#numbers.sequence(1940, 2010)}" th:value="${i}" th:text="${i}">
                         </option>
                     </select>年
+
                     <select th:field="*{birthM}">
                         <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}">
                         </option>
                     </select>月
+
                     <select th:field="*{birthD}">
                         <option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}" th:text="${i}">
                         </option>
                     </select>日
                 </td>
+                    <span th:if="${#fields.hasErrors('birthY')}" th:errors="*{birthY}"></span>
+                    <span th:if="${#fields.hasErrors('birthM')}" th:errors="*{birthM}"></span>
+                    <span th:if="${#fields.hasErrors('birthD')}" th:errors="*{birthD}"></span>
+                <td>
+
+                </td>
             </tr>
             <tr>
                 <th>Email</th>
                 <td><input type="text" th:field="*{email}"></td>
+                <td><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></td>
             </tr>
             <tr>
                 <th>パスワード</th>
                 <td><input type="text" th:field="*{encryptedPassword}"></td>
+               <td><span th:if="${#fields.hasErrors('encryptedPassword')}" th:errors="*{encryptedPassword}"></span></td>
             </tr>
             <tr>
                 <th>プロフィール画像</th>
                 <td><input type="text" th:field="*{profileImage}"></td>
+                <td><span th:if="${#fields.hasErrors('profileImage')}" th:errors="*{profileImage}"></span></td>
             </tr>
             <tr>
                 <th>背景画像</th>
                 <td><input type="text" th:field="*{backgroundImage}"></td>
+                <td><span th:if="${#fields.hasErrors('backgroundImage')}" th:errors="*{backgroundImage}"></span></td>
             </tr>
             <tr>
                 <th>自己紹介文</th>
                 <td><input type="text" th:field="*{introduction}"></td>
+                <td><span th:if="${#fields.hasErrors('introduction')}" th:errors="*{introduction}"></span></td>
             </tr>
             <tr>
                 <th>位置情報</th>
                 <td><input type="text" th:field="*{address}"></td>
+                <td><span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span></td>
             </tr>
             <tr>
                 <th>WEBサイト</th>
                 <td><input type="text" th:field="*{webSite}"></td>
+                <td><span th:if="${#fields.hasErrors('webSite')}" th:errors="*{webSite}"></span></td>
             </tr>
             <tr>
                 <th>ステータス</th>
                 <td><input type="text" th:field="*{status}"></td>
+                <td><span th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></span></td>
             </tr>
         </table>
         <input type="submit" value="更新">

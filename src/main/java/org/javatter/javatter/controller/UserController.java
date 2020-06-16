@@ -10,6 +10,8 @@ import org.javatter.javatter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,7 +41,10 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public String create(UserForm userForm) {
+    public String create(@Validated UserForm userForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "users/new";
+        }
         userService.createUser(userForm);
         return "redirect:/users";
     }
@@ -63,9 +68,12 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public String update(@PathVariable Long id, UserUpdateForm userUpdateForm) {
+    public String update(@PathVariable Long id, @Validated UserUpdateForm userUpdateForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "users/edit";
+        }
         userService.updateUser(id, userUpdateForm);
-        return String.format("redirect:/users/%d", userUpdateForm.getId());
+        return String.format("redirect:/users/%d", id);
     }
 
     @DeleteMapping("/users/{id}")
