@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ユーザー一覧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th>生年月日</th>
+            <th>位置情報</th>
+            <th>自己紹介</th>
+            <th>Email</th>
+            <th>ステータス</th>
+            <th>登録日時</th>
+            <th>更新日時</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${#temporals.format(user.birthday, 'yyyy年MM月dd日')}"></td>
+            <td th:text="${user.address}"></td>
+            <td th:text="${user.introduction}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.status}"></td>
+            <td th:text="${#temporals.format(user.createdAt, 'yyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="${#temporals.format(user.updatedAt, 'yyy-MM-dd HH:mm:ss')}"></td>
+            <td><a th:href="@{/users/{id}(id=${user.id})}">詳細</a></td>
+            <td><a th:href="@{/users/{id}/edit(id=${user.id})}">編集</a></td>
+            <td>
+                <form th:action="@{/users/{id}(id=${user.id})}" th:method="delete">
+                    <input type="submit" value="削除">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <a th:href="@{/users/new}">ユーザー登録画面へ</a>
+</body>
+
+</html>

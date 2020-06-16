@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ユーザー登録</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>名前</th>
+            <td th:text="${user.name}"></td>
+        </tr>
+        <tr>
+            <th>生年月日</th>
+            <td th:text="${#temporals.format(user.birthday, 'yyyy年MM月dd日')}"></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td th:text="${user.email}"></td>
+        </tr>
+        <tr>
+            <th>パスワード</th>
+            <td th:text="${user.encryptedPassword}"></td>
+        </tr>
+        <tr>
+            <th>プロフィール画像</th>
+            <td th:text="${user.profileImage}"></td>
+        </tr>
+        <tr>
+            <th>背景画像</th>
+            <td th:text="${user.backgroundImage}"></td>
+        </tr>
+        <tr>
+            <th>自己紹介文</th>
+            <td th:text="${user.introduction}"></td>
+        </tr>
+        <tr>
+            <th>位置情報</th>
+            <td th:text="${user.address}"></td>
+        </tr>
+        <tr>
+            <th>WEBサイト</th>
+            <td th:text="${user.webSite}"></td>
+        </tr>
+        <tr>
+            <th>ステータス</th>
+            <td th:text="${user.status}"></td>
+        </tr>
+    </table>
+    <a th:href="@{/users/{id}/edit(id=${user.id})}">編集画面へ</a>
+    <a th:href="@{/users}">一覧画面へ戻る</a>
+</body>
+
+</html>
