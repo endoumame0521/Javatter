@@ -2,6 +2,7 @@ package org.javatter.javatter.controller;
 
 import java.util.List;
 
+import org.javatter.javatter.converter.UserConverter;
 import org.javatter.javatter.entity.User;
 import org.javatter.javatter.form.UserForm;
 import org.javatter.javatter.form.UserUpdateForm;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserConverter userConverter;
 
     @GetMapping("/users")
     public String index(Model model) {
@@ -51,19 +55,8 @@ public class UserController {
         User user = userService.getUser(id);
 
         UserUpdateForm userUpdateForm = new UserUpdateForm();
-        userUpdateForm.setId(id);
-        userUpdateForm.setName(user.getName());
-        userUpdateForm.setEmail(user.getEmail());
-        userUpdateForm.setBirthYear(user.getBirthday().getYear());
-        userUpdateForm.setBirthMonth(user.getBirthday().getMonthValue());
-        userUpdateForm.setBirthDay(user.getBirthday().getDayOfMonth());
-        userUpdateForm.setEncryptedPassword(user.getEncryptedPassword());
-        userUpdateForm.setProfileImage(user.getProfileImage());
-        userUpdateForm.setBackgroundImage(user.getBackgroundImage());
-        userUpdateForm.setIntroduction(user.getIntroduction());
-        userUpdateForm.setAddress(user.getAddress());
-        userUpdateForm.setWebSite(user.getWebSite());
-        userUpdateForm.setStatus(user.getStatus());
+        // エンティティの各データをフォームにセット
+        userConverter.entityToForm(user, userUpdateForm);
         model.addAttribute("userUpdateForm", userUpdateForm);
         return "users/edit";
     }

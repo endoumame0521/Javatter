@@ -1,8 +1,8 @@
 package org.javatter.javatter.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
+import org.javatter.javatter.converter.UserConverter;
 import org.javatter.javatter.entity.User;
 import org.javatter.javatter.form.UserForm;
 import org.javatter.javatter.form.UserUpdateForm;
@@ -16,6 +16,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserConverter userConverter;
+
     @Transactional(readOnly = true)
     public List<User> getUsers() {
         // ユーザーをデータベースから全件取得
@@ -26,10 +29,7 @@ public class UserService {
     public void createUser(UserForm userForm) {
         User user = new User();
         // フォームから取得した各データをエンティティにセットし、最後にDBへ保存
-        user.setName(userForm.getName());
-        user.setEmail(userForm.getEmail());
-        user.setBirthday(getLocalDate(userForm));
-        user.setEncryptedPassword(userForm.getEncryptedPassword());
+        userConverter.formToEntity(userForm, user);
         userRepository.save(user);
     }
 
@@ -44,27 +44,8 @@ public class UserService {
         // IDを元にDBから1つのユーザーを取得
         User user = getUser(id);
         // フォームから取得した各データをエンティティにセット
-        user.setName(userUpdateForm.getName());
-        // UserForm userForm = userUpdateForm;
-        user.setBirthday(getLocalDate(userUpdateForm));
-        user.setEmail(userUpdateForm.getEmail());
-        user.setEncryptedPassword(userUpdateForm.getEncryptedPassword());
-        user.setProfileImage(userUpdateForm.getProfileImage());
-        user.setBackgroundImage(userUpdateForm.getBackgroundImage());
-        user.setIntroduction(userUpdateForm.getIntroduction());
-        user.setAddress(userUpdateForm.getAddress());
-        user.setWebSite(userUpdateForm.getWebSite());
-        user.setStatus(userUpdateForm.getStatus());
+        userConverter.formToEntity(userUpdateForm, user);
         // エンティティにセットされたデータをDBへ保存
         userRepository.save(user);
-    }
-
-    private LocalDate getLocalDate(UserForm userForm) {
-        // フォームから年月日をそれぞれ取得してLocalDate型に変換
-        int birthYear = userForm.getBirthYear();
-        int birthMonth = userForm.getBirthMonth();
-        int birthDay = userForm.getBirthDay();
-        LocalDate birthDate = LocalDate.of(birthYear, birthMonth, birthDay);
-        return birthDate;
     }
 }

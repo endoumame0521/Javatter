@@ -1,5 +1,6 @@
 package org.javatter.javatter.initialize;
 
+import org.javatter.javatter.converter.UserConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,5 +18,10 @@ public class AppConfig {
         modelMapper.getConfiguration().setSkipNullEnabled(true);
 
         return modelMapper;
+    }
+
+    @Bean
+    public UserConverter userConverter() {
+        return new UserConverter();
     }
 }
