@@ -10,6 +10,7 @@ import org.javatter.javatter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,5 +66,11 @@ public class UserController {
     public String update(@PathVariable Long id, UserUpdateForm userUpdateForm) {
         userService.updateUser(id, userUpdateForm);
         return String.format("redirect:/users/%d", userUpdateForm.getId());
+    }
+
+    @DeleteMapping("/users/{id}")
+    public String destroy(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return "redirect:/users";
     }
 }

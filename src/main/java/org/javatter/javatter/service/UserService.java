@@ -48,4 +48,9 @@ public class UserService {
         // エンティティにセットされたデータをDBへ保存
         userRepository.save(user);
     }
+
+    @Transactional
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 }

@@ -20,6 +20,7 @@
             <th>更新日時</th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         <tr th:each="user : ${users}">
             <td th:text="${user.id}"></td>
@@ -33,6 +34,11 @@
             <td th:text="${#temporals.format(user.updatedAt, 'yyy-MM-dd HH:mm:ss')}"></td>
             <td><a th:href="@{/users/{id}(id=${user.id})}">詳細</a></td>
             <td><a th:href="@{/users/{id}/edit(id=${user.id})}">編集</a></td>
+            <td>
+                <form th:action="@{/users/{id}(id=${user.id})}" th:method="delete">
+                    <input type="submit" value="削除">
+                </form>
+            </td>
         </tr>
     </table>
     <a th:href="@{/users/new}">ユーザー登録画面へ</a>
