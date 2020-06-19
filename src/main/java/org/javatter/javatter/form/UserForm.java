@@ -25,9 +25,10 @@ public class UserForm {
     private int birthD;
 
     @Size(min = 1, max = 255)
+    // @Unique
     @Email
     private String email;
 
     @Size(min = 6, max = 20)
-    private String encryptedPassword;
+    private String rawPassword;
 }

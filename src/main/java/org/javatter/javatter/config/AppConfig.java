@@ -1,4 +1,4 @@
-package org.javatter.javatter.initialize;
+package org.javatter.javatter.config;
 
 import org.javatter.javatter.converter.UserConverter;
 import org.modelmapper.ModelMapper;

@@ -8,6 +8,8 @@ import org.javatter.javatter.form.UserForm;
 import org.javatter.javatter.form.UserUpdateForm;
 import org.javatter.javatter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,5 +54,13 @@ public class UserService {
     @Transactional
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public User getCurrentUser() {
+        // DBに保存されたセッション情報からユーザーのEmailを取得し、それを元にDBからログイン中のユーザーを取得
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userRepository.findByEmail(auth.getName());
+        return currentUser;
     }
 }

@@ -29,7 +29,9 @@ public class UserController {
     @GetMapping("/users")
     public String index(Model model) {
         List<User> users = userService.getUsers();
+        User currentUser = userService.getCurrentUser();
         model.addAttribute("users", users);
+        model.addAttribute("currentUser", currentUser);
         return "users/index";
     }
 

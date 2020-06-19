@@ -49,8 +49,8 @@
             <tr>
                 <th>パスワード</th>
                 <td>
-                    <input type="text" th:field="*{encryptedPassword}">
-                    <span th:if="${#fields.hasErrors('encryptedPassword')}" th:errors="*{encryptedPassword}"></span>
+                    <input type="text" th:field="*{rawPassword}">
+                    <span th:if="${#fields.hasErrors('rawPassword')}" th:errors="*{rawPassword}"></span>
                 </td>
             </tr>
         </table>

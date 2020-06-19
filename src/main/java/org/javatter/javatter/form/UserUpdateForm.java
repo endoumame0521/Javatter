@@ -3,6 +3,8 @@ package org.javatter.javatter.form;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.URL;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,6 +21,7 @@ public class UserUpdateForm extends UserForm {
     private String introduction;
 
     @Size(max = 200)
+    @URL
     private String webSite;
 
     @Size(max = 200)
