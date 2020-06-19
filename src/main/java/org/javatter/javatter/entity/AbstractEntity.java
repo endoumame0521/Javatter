@@ -12,7 +12,7 @@ import lombok.Data;
 // Entityクラスのスーパークラスを宣言
 @MappedSuperclass
 @Data
-public class AbstractEntity {
+public abstract class AbstractEntity {
     // Date型からLocalDateTime型に変更
     // @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)

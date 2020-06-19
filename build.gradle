@@ -33,6 +33,7 @@ dependencies {
 	}
 	testImplementation 'org.springframework.security:spring-security-test'
 	compile "org.modelmapper:modelmapper:2.3.0"
+	compile 'org.springframework.session:spring-session-jdbc'
 }
 
 test {

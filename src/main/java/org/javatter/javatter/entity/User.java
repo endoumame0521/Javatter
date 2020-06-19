@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
 // テーブル名を users に設定
 @Table(name = "users")
 // スーパークラスであるAbstractEntityを継承
-public class User extends AbstractEntity {
+public class User extends LoginUser {
     // primary key
     @Id
     // Auto_increment
@@ -46,13 +46,6 @@ public class User extends AbstractEntity {
     private String profileImage;
 
     private String backgroundImage;
-
-    // ユニークキー設定
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false, unique = true)
-    private String encryptedPassword;
 
     // Not null制約、デフォルト値 1 設定
     @Column(nullable = false, columnDefinition = "bit default 1")

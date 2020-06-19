@@ -41,6 +41,20 @@
             </td>
         </tr>
     </table>
+    <table>
+        <tr>
+            <th>名前</th>
+            <td th:text="${currentUser.name}"></td>
+        </tr>
+        <tr>
+        <th>生年月日</th>
+        <td th:text="${#temporals.format(currentUser.birthday, 'yyyy年MM月dd日')}"></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td th:text="${currentUser.email}"></td>
+        </tr>
+    </table>
     <a th:href="@{/users/new}">ユーザー登録画面へ</a>
 </body>
 
