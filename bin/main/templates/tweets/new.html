@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>新規投稿</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form th:object="${tweetForm}" th:action="@{/new_tweet}" th:method="post">
+  <table>
+    <tr>
+      <th>タイトル</th>
+      <td>
+        <input type="text" th:field="*{title}" placeholder="タイトルを入力">
+      </td>
+    </tr>
+    <tr>
+      <th>詳細</th>
+      <td>
+        <input type="text" th:field="*{body}" placeholder="詳細を入力">
+      </td>
+    </tr>
+  </table>
+  <input type="submit" value="投稿">
+</form>
+</body>
+</html>
