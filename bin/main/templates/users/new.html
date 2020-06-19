@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ユーザー登録</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <form th:object="${userForm}" th:action="@{/users}" th:method="post">
+        <table>
+            <tr>
+                <th>名前</th>
+                <td>
+                    <input type="text" th:field="*{name}">
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>生年月日</th>
+                <td>
+                    <select th:field="*{birthY}">
+                        <option th:each="i : ${#numbers.sequence(1940, 2010)}" th:value="${i}" th:text="${i}">
+                        </option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('birthY')}" th:errors="*{birthY}"></span>
+
+                    <select th:field="*{birthM}">
+                        <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}">
+                        </option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('birthM')}" th:errors="*{birthM}"></span>
+
+                    <select th:field="*{birthD}">
+                        <option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}" th:text="${i}">
+                        </option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('birthD')}" th:errors="*{birthD}"></span>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>
+                    <input type="text" th:field="*{email}">
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th>パスワード</th>
+                <td>
+                    <input type="text" th:field="*{rawPassword}">
+                    <span th:if="${#fields.hasErrors('rawPassword')}" th:errors="*{rawPassword}"></span>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="登録">
+        <a th:href="@{/users}">一覧画面へ戻る</a>
+    </form>
+</body>
+
+</html>
