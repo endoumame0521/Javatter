@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>投稿一覧</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>投稿一覧</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>タイトル</th>
+    <th>詳細</th>
+  </tr>
+  <tr th:each="tweet : ${tweets}">
+    <td th:text="${tweet.id}"></td>
+    <td th:text="${tweet.title}"></td>
+    <td th:text="${tweet.body}"></td>
+  </tr>
+</table>
+</body>
+</html>
