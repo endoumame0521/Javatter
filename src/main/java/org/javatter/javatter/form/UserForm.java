@@ -31,4 +31,7 @@ public class UserForm {
 
     @Size(min = 6, max = 20)
     private String rawPassword;
+
+    // 権限を管理するカラムを定義（データは文字列のカンマ区切りで格納する）
+    private String[] roles;
 }
