@@ -1,10 +1,12 @@
 package org.javatter.javatter.config;
 
 import org.javatter.javatter.converter.UserConverter;
+import org.javatter.javatter.interceptor.UserInterceptor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 // Springにbeanとして登録して@Autowiredで使用できるようにする
 // 同時にModelMapperの初期設定を定義
@@ -23,5 +25,10 @@ public class AppConfig {
     @Bean
     public UserConverter userConverter() {
         return new UserConverter();
+    }
+
+    @Bean
+    public HandlerInterceptor userInterceptor() throws Exception {
+        return new UserInterceptor();
     }
 }
