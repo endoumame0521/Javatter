@@ -2,7 +2,7 @@ package org.javatter.javatter.controller;
 
 import java.util.List;
 
-import org.javatter.javatter.annotation.ExcludeInterceptor;
+import org.javatter.javatter.annotation.RedirectNotCurrentUser;
 import org.javatter.javatter.converter.UserConverter;
 import org.javatter.javatter.entity.User;
 import org.javatter.javatter.form.UserForm;
@@ -31,7 +31,6 @@ public class UserController {
     @Autowired
     private UserConverter userConverter;
 
-    @ExcludeInterceptor
     @GetMapping("")
     public String index(Model model) {
         List<User> users = userService.getUsers();
@@ -39,7 +38,6 @@ public class UserController {
         return "users/index";
     }
 
-    @ExcludeInterceptor
     @GetMapping("/new")
     public String newUser(Model model) {
         UserForm userForm = new UserForm();
@@ -47,7 +45,6 @@ public class UserController {
         return "users/new";
     }
 
-    @ExcludeInterceptor
     @PostMapping("")
     public String create(@Validated UserForm userForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -57,7 +54,6 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @ExcludeInterceptor
     @GetMapping("/{id}")
     public String show(@PathVariable Long id, Model model) {
         User user = userService.getUser(id);
@@ -65,6 +61,7 @@ public class UserController {
         return "users/show";
     }
 
+    @RedirectNotCurrentUser
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
         User user = userService.getUser(id);
@@ -76,6 +73,7 @@ public class UserController {
         return "users/edit";
     }
 
+    @RedirectNotCurrentUser
     @PutMapping("/{id}")
     public String update(@PathVariable Long id, @Validated UserUpdateForm userUpdateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -85,6 +83,7 @@ public class UserController {
         return String.format("redirect:/users/%d", id);
     }
 
+    @RedirectNotCurrentUser
     @DeleteMapping("/{id}")
     public String destroy(@PathVariable Long id) {
         userService.deleteUser(id);

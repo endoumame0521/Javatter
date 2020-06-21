@@ -1,7 +1,7 @@
 package org.javatter.javatter.config;
 
 import org.javatter.javatter.converter.UserConverter;
-import org.javatter.javatter.interceptor.UserInterceptor;
+import org.javatter.javatter.interceptor.RedirectNotCurrentUserInterceptor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,7 +29,7 @@ public class AppConfig {
 
     // interceptorをBeanに登録
     @Bean
-    public HandlerInterceptor userInterceptor() throws Exception {
-        return new UserInterceptor();
+    public HandlerInterceptor redirectNotCurrentUserInterceptor() throws Exception {
+        return new RedirectNotCurrentUserInterceptor();
     }
 }

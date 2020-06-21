@@ -9,11 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
     @Autowired
-    HandlerInterceptor userInterceptor;
+    HandlerInterceptor redirectNotCurrentUserInterceptor;
 
     // interceptorを登録
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(userInterceptor);
+        registry.addInterceptor(redirectNotCurrentUserInterceptor);
     }
 }
