@@ -27,6 +27,7 @@ public class AppConfig {
         return new UserConverter();
     }
 
+    // interceptorをBeanに登録
     @Bean
     public HandlerInterceptor userInterceptor() throws Exception {
         return new UserInterceptor();

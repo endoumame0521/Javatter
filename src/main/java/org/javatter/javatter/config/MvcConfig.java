@@ -11,6 +11,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     HandlerInterceptor userInterceptor;
 
+    // interceptorを登録
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userInterceptor);
