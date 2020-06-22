@@ -59,6 +59,7 @@ public class User extends AbstractEntity {
     private String backgroundImage;
 
     // 権限を管理するカラムを定義（データは文字列のカンマ区切りで格納する）
+    @Column(nullable = false)
     private String roles;
 
     // Not null制約、デフォルト値 1 設定
