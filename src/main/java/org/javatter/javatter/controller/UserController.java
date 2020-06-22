@@ -9,8 +9,6 @@ import org.javatter.javatter.form.UserForm;
 import org.javatter.javatter.form.UserUpdateForm;
 import org.javatter.javatter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -63,7 +61,7 @@ public class UserController {
 
     @RedirectNotCurrentUser
     @GetMapping("/{id}/edit")
-    public String edit(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String edit(@PathVariable Long id, Model model) {
         User user = userService.getUser(id);
 
         UserUpdateForm userUpdateForm = new UserUpdateForm();
