@@ -28,13 +28,11 @@ public class UserService {
     @Transactional
     public void createUser(UserForm userForm) {
         User user = new User();
-
         // USER権限とADMIN権限の入ったroles配列をUserFormにセット
         String[] roles = { "ROLE_USER", "ROLE_ADMIN" };
         userForm.setRoles(roles);
-
         // フォームから取得した各データをエンティティにセットし、最後にDBへ保存
-        userConverter.formToEntity(userForm, user);
+        userConverter.formToEntityAtCreate(userForm, user);
         userRepository.save(user);
     }
 

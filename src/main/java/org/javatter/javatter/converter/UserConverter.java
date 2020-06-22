@@ -17,12 +17,18 @@ public class UserConverter {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    // フォームからエンテティへの詰め替え処理
-    public void formToEntity(UserForm userForm, User user) {
+    // ユーザー登録時のフォームからエンテティへの詰め替え処理
+    public void formToEntityAtCreate(UserForm userForm, User user) {
         modelMapper.map(userForm, user);
         user.setBirthday(joinBirthday(userForm));
         user.setEncryptedPassword(encodePassword(userForm));
         user.setRoles(joinRoles(userForm));
+    }
+
+    // フォームからエンテティへの詰め替え処理
+    public void formToEntity(UserForm userForm, User user) {
+        modelMapper.map(userForm, user);
+        user.setBirthday(joinBirthday(userForm));
     }
 
     // エンティティからフォームへの詰め替え処理
