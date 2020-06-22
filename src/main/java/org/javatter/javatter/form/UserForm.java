@@ -5,6 +5,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import org.javatter.javatter.validation.Unique;
+
 import lombok.Data;
 
 @Data
@@ -25,7 +27,7 @@ public class UserForm {
     private int birthD;
 
     @Size(min = 1, max = 255)
-    // @Unique
+    @Unique
     @Email
     private String email;
 
