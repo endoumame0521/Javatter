@@ -65,4 +65,11 @@ public class User extends AbstractEntity {
     // Not null制約、デフォルト値 1 設定
     @Column(nullable = false, columnDefinition = "bit default 1")
     private Boolean status;
+
+    // スーパークラスAbstractEntityのprePersistメソッドをオーバーライド
+    @Override
+    public void prePersist() {
+        super.prePersist();
+        setStatus(true);
+    }
 }
