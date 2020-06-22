@@ -1,8 +1,12 @@
 package org.javatter.javatter.controller;
 
+import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.javatter.javatter.annotation.RedirectNotCurrentUser;
+import org.javatter.javatter.auth.LoginUserDetailsService;
 import org.javatter.javatter.converter.UserConverter;
 import org.javatter.javatter.entity.User;
 import org.javatter.javatter.form.UserForm;
@@ -27,6 +31,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private LoginUserDetailsService loginUserDetailsService;
+
+    @Autowired
     private UserConverter userConverter;
 
     @GetMapping("")
@@ -37,18 +44,29 @@ public class UserController {
     }
 
     @GetMapping("/new")
-    public String newUser(Model model) {
+    public String newUser(Model model, Principal principal) {
+        // 認証済ならリダイレクト
+        if (principal != null)
+            return "redirect:/users";
+
         UserForm userForm = new UserForm();
         model.addAttribute("userForm", userForm);
         return "users/new";
     }
 
     @PostMapping("")
-    public String create(@Validated UserForm userForm, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+    public String create(@Validated UserForm userForm, BindingResult bindingResult, Principal principal,
+            HttpServletRequest request) {
+        // 認証済ならリダイレクト
+        if (principal != null)
+            return "redirect:/users";
+        // フォームのバリデーション
+        if (bindingResult.hasErrors())
             return "users/new";
-        }
+        // ユーザー登録
         userService.createUser(userForm);
+        // ユーザー登録後、ログイン
+        loginUserDetailsService.loginUser(request, userForm);
         return "redirect:/users";
     }
 

@@ -1,5 +1,9 @@
 package org.javatter.javatter.auth;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
+import org.javatter.javatter.form.UserForm;
 import org.javatter.javatter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class LoginUserDetailsService implements UserDetailsService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -20,5 +24,14 @@ public class LoginUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).map(LoginUser::new)
                 .orElseThrow(() -> new UsernameNotFoundException("Eメールが存在しません"));
+    }
+
+    // 手動でログインするメソッドを定義
+    public void loginUser(HttpServletRequest request, UserForm userForm) {
+        try {
+            request.login(userForm.getEmail(), userForm.getRawPassword());
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
     }
 }
