@@ -45,11 +45,6 @@
                 <td><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></td>
             </tr>
             <tr>
-                <th>パスワード</th>
-                <td><input type="text" th:field="*{rawPassword}"></td>
-               <td><span th:if="${#fields.hasErrors('rawPassword')}" th:errors="*{rawPassword}"></span></td>
-            </tr>
-            <tr>
                 <th>プロフィール画像</th>
                 <td><input type="text" th:field="*{profileImage}"></td>
                 <td><span th:if="${#fields.hasErrors('profileImage')}" th:errors="*{profileImage}"></span></td>

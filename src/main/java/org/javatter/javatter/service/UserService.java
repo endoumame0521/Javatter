@@ -8,8 +8,6 @@ import org.javatter.javatter.form.UserForm;
 import org.javatter.javatter.form.UserUpdateForm;
 import org.javatter.javatter.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,8 +28,11 @@ public class UserService {
     @Transactional
     public void createUser(UserForm userForm) {
         User user = new User();
+        // USER権限とADMIN権限の入ったroles配列をUserFormにセット
+        String[] roles = { "ROLE_USER", "ROLE_ADMIN" };
+        userForm.setRoles(roles);
         // フォームから取得した各データをエンティティにセットし、最後にDBへ保存
-        userConverter.formToEntity(userForm, user);
+        userConverter.formToEntityAtCreate(userForm, user);
         userRepository.save(user);
     }
 
@@ -54,13 +55,5 @@ public class UserService {
     @Transactional
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
-    }
-
-    @Transactional(readOnly = true)
-    public User getCurrentUser() {
-        // DBに保存されたセッション情報からユーザーのEmailを取得し、それを元にDBからログイン中のユーザーを取得
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = userRepository.findByEmail(auth.getName());
-        return currentUser;
     }
 }

@@ -1,7 +1,12 @@
 package org.javatter.javatter.controller;
 
+import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.javatter.javatter.annotation.RedirectNotCurrentUser;
+import org.javatter.javatter.auth.LoginUserDetailsService;
 import org.javatter.javatter.converter.UserConverter;
 import org.javatter.javatter.entity.User;
 import org.javatter.javatter.form.UserForm;
@@ -17,48 +22,63 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserService userService;
 
     @Autowired
+    private LoginUserDetailsService loginUserDetailsService;
+
+    @Autowired
     private UserConverter userConverter;
 
-    @GetMapping("/users")
+    @GetMapping("")
     public String index(Model model) {
         List<User> users = userService.getUsers();
-        User currentUser = userService.getCurrentUser();
         model.addAttribute("users", users);
-        model.addAttribute("currentUser", currentUser);
         return "users/index";
     }
 
-    @GetMapping("/users/new")
-    public String newUser(Model model) {
+    @GetMapping("/new")
+    public String newUser(Model model, Principal principal) {
+        // 認証済ならリダイレクト
+        if (principal != null)
+            return "redirect:/users";
+
         UserForm userForm = new UserForm();
         model.addAttribute("userForm", userForm);
         return "users/new";
     }
 
-    @PostMapping("/users")
-    public String create(@Validated UserForm userForm, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+    @PostMapping("")
+    public String create(@Validated UserForm userForm, BindingResult bindingResult, Principal principal,
+            HttpServletRequest request) {
+        // 認証済ならリダイレクト
+        if (principal != null)
+            return "redirect:/users";
+        // フォームのバリデーション
+        if (bindingResult.hasErrors())
             return "users/new";
-        }
+        // ユーザー登録
         userService.createUser(userForm);
+        // ユーザー登録後、ログイン
+        loginUserDetailsService.loginUser(request, userForm);
         return "redirect:/users";
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public String show(@PathVariable Long id, Model model) {
         User user = userService.getUser(id);
         model.addAttribute("user", user);
         return "users/show";
     }
 
-    @GetMapping("/users/{id}/edit")
+    @RedirectNotCurrentUser
+    @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, Model model) {
         User user = userService.getUser(id);
 
@@ -69,7 +89,8 @@ public class UserController {
         return "users/edit";
     }
 
-    @PutMapping("/users/{id}")
+    @RedirectNotCurrentUser
+    @PutMapping("/{id}")
     public String update(@PathVariable Long id, @Validated UserUpdateForm userUpdateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "users/edit";
@@ -78,7 +99,8 @@ public class UserController {
         return String.format("redirect:/users/%d", id);
     }
 
-    @DeleteMapping("/users/{id}")
+    @RedirectNotCurrentUser
+    @DeleteMapping("/{id}")
     public String destroy(@PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/users";
