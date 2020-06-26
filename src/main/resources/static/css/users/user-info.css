@@ -1,0 +1,80 @@
+.user-info {
+  position: relative;
+  border-bottom: solid 1px #eeeeee;
+}
+
+.user-info__background {
+  background-color: limegreen;
+  height: calc(22.5vh);
+}
+
+.user-info__image {
+  position: absolute;
+  height: calc(22.5vh * 0.7);
+  width: calc(22.5vh * 0.7);
+  border-radius: 50%;
+  background-color: yellow;
+  top: calc(22.5vh - (22.5vh * 0.7) * 0.5);
+  left: 20px;
+  z-index: 1;
+}
+
+.user-info__contents {
+  padding: 10px;
+}
+
+.user-info__contents-edit {
+  background-color: gray;
+  height: calc((22.5vh * 0.7) * 0.5);
+  padding: calc((22.5vh * 0.7) * 0.5 * 0.2);
+  margin-bottom: 15px;
+}
+
+.user-info__contents-edit button {
+  position: relative;
+  margin-right: 10px;
+}
+
+.user-info__contents-edit button a {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.user-info__contents-name {
+  background-color: blue;
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user-info__contents-introduction {
+  background-color: orange;
+  margin-bottom: 15px;
+}
+
+.user-info__contents-others {
+  background-color: pink;
+  margin-bottom: 15px;
+  color: #657786;
+}
+
+.user-info__contents-others i {
+  margin-right: 7px;
+}
+
+.user-info__contents-others span {
+  margin-right: 15px;
+}
+
+.user-info__contents-relationship {
+  background-color: greenyellow;
+}
+
+.user-info__contents-relationship span {
+  margin-right: 15px;
+}
+/*# sourceMappingURL=user-info.css.map */

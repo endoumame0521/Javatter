@@ -1,0 +1,99 @@
+.javatter {
+    .javatter-row {
+        display: flex;
+    }
+
+    &__menu {
+        // スクロール時に固定する設定
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        //
+        padding-top: 12px;
+        font-size: 18px;
+        font-weight: 700;
+
+        // 左サイドバーのメニュー
+        ul {
+            list-style: none;
+
+            li {
+                position: relative;
+                line-height: 46px;
+                margin: 5px 15px 5px 0px;
+                padding: 0px 15px;
+                border-radius: 50px;
+                transition: all 0.2s ease;
+                i {
+                    margin-right: 15px;
+                }
+            }
+
+            li:hover {
+                background-color: #e3f2fd;
+            }
+        }
+
+        // ツイートするボタン
+        .javatter__menu-tweet {
+            position: relative;
+            margin-top: 20px;
+            padding: 10px 40px;
+        }
+
+        // 左サイドメニュー全体のリンクに対するCSS
+        a {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        // 左サイドメニュー最下部のログインユーザー情報
+        &-principal {
+            position: absolute;
+            bottom: 0;
+            margin-bottom: 10px;
+            border-radius: 50px;
+            width: 100%;
+        }
+
+        &-principal:hover {
+            background-color: #e3f2fd;
+        }
+
+        // ログアウトページへのリンク
+        &-logout {
+            position: absolute;
+            width: 100px;
+            bottom: 10px;
+            left: 180px;
+        }
+    }
+
+    // 中央のメイン画面
+    &__main {
+        border-left: solid 1px #eeeeee;
+        border-right: solid 1px #eeeeee;
+        // position: flex;
+        .user-header {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: #ffffff;
+            border-bottom: solid 1px #eeeeee;
+        }
+    }
+
+    // 右インフォ画面
+    &__info {
+        // スクロール時に固定する設定
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        //
+        padding-top: 12px;
+    }
+}
