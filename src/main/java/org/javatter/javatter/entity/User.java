@@ -71,5 +71,7 @@ public class User extends AbstractEntity {
     public void prePersist() {
         super.prePersist();
         setStatus(true);
+        // 認証時の権限リスト
+        setRoles("ROLE_USER, ROLE_ADMIN");
     }
 }
