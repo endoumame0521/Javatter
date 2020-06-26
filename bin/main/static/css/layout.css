@@ -1,0 +1,94 @@
+.javatter .javatter-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.javatter__menu {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding-top: 12px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.javatter__menu ul {
+  list-style: none;
+}
+
+.javatter__menu ul li {
+  position: relative;
+  line-height: 46px;
+  margin: 5px 15px 5px 0px;
+  padding: 0px 15px;
+  border-radius: 50px;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.javatter__menu ul li i {
+  margin-right: 15px;
+}
+
+.javatter__menu ul li:hover {
+  background-color: #e3f2fd;
+}
+
+.javatter__menu .javatter__menu-tweet {
+  position: relative;
+  margin-top: 20px;
+  padding: 10px 40px;
+}
+
+.javatter__menu a {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.javatter__menu-principal {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 10px;
+  border-radius: 50px;
+  width: 100%;
+}
+
+.javatter__menu-principal:hover {
+  background-color: #e3f2fd;
+}
+
+.javatter__menu-logout {
+  position: absolute;
+  width: 100px;
+  bottom: 10px;
+  left: 180px;
+}
+
+.javatter__main {
+  border-left: solid 1px #eeeeee;
+  border-right: solid 1px #eeeeee;
+}
+
+.javatter__main .user-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #ffffff;
+  border-bottom: solid 1px #eeeeee;
+}
+
+.javatter__info {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding-top: 12px;
+}
+/*# sourceMappingURL=layout.css.map */

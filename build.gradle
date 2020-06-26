@@ -37,6 +37,8 @@ dependencies {
 	}
 	testImplementation 'org.springframework.security:spring-security-test'
 	compile "org.modelmapper:modelmapper:2.3.0"
+	// thymeleafのlayout共通機能を使用する為
+	compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect"
 }
 
 test {

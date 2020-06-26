@@ -1,76 +1,48 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmls:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
 
 <head>
     <title>ユーザー一覧</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/users/user-header.css}">
+    <link rel="stylesheet" th:href="@{/css/users/user-list.css}">
 </head>
 
 <body>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>名前</th>
-            <th>生年月日</th>
-            <th>位置情報</th>
-            <th>自己紹介</th>
-            <th>Email</th>
-            <th>ステータス</th>
-            <th>権限</th>
-            <th>登録日時</th>
-            <th>更新日時</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.name}"></td>
-            <td th:text="${#temporals.format(user.birthday, 'yyyy年MM月dd日')}"></td>
-            <td th:text="${user.address}"></td>
-            <td th:text="${user.introduction}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.status}"></td>
-            <td th:text="${user.roles}"></td>
-            <td th:text="${#temporals.format(user.createdAt, 'yyy-MM-dd HH:mm:ss')}"></td>
-            <td th:text="${#temporals.format(user.updatedAt, 'yyy-MM-dd HH:mm:ss')}"></td>
-            <td><a th:href="@{/users/{id}(id=${user.id})}">詳細</a></td>
-            <td><a th:href="@{/users/{id}/edit(id=${user.id})}">編集</a></td>
-            <td>
-                <form th:action="@{/users/{id}(id=${user.id})}" th:method="delete">
-                    <input type="submit" value="削除">
-                </form>
-            </td>
-        </tr>
-    </table>
-    <br>------------------------------------------------------------<br>
-    <a th:href="@{/users/new}">ユーザー登録画面へ</a>
-    <br>------------------------------------------------------------<br>
-    <table sec:authorize="isAuthenticated()">
-        <tr><h2>ログインユーザー情報</h2></tr>
-        <!-- ログインしている場合のみ表示 -->
-        <tr>
-            <th>名前</th>
-            <td th:text="${#authentication.principal.user.name}"></td>
-        </tr>
-        <tr>
-            <th>生年月日</th>
-            <td th:text="${#temporals.format(#authentication.principal.user.birthday, 'yyyy年MM月dd日')}"></td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td th:text="${#authentication.principal.user.email}"></td>
-        </tr>
-        <tr>
-            <th><a th:href="@{/logout}">ログアウト</a></th>
-            <td></td>
-        </tr>
-    </table>
-    <!-- ログインしていない場合のみ表示 -->
-    <table sec:authorize="!isAuthenticated()">
-        <tr><a th:href="@{/login}">ログイン</a></tr>
-    </table>
-
+    <!-- 検索窓 -->
+    <div class="user-header row pt-2 pb-2" layout:fragment="main-header">
+        <form class="form-inline ml-auto mr-auto">
+            <input class="form-control mr-sm-2 rounded-pill" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0 rounded-pill" type="submit">Search</button>
+        </form>
+    </div>
+    <!--  ユーザーリスト -->
+    <div class="user-list row" layout:fragment="main-contents" th:each="user : ${users}" th:object="${user}">
+        <!-- プロフィール画像 -->
+        <div class="user-list__user-image col-2">
+            <span th:text="*{profileImage}"></span>
+        </div>
+        <div class="user-list__user-contents col-10 pl-5">
+            <div class="user-list__user-header row">
+                <!-- ユーザー名前 -->
+                <div class="user-list__user-name">
+                    <span th:text="*{name}"></span>
+                </div>
+                <!-- フォローボタン -->
+                <div class="user-list__user-follow ml-auto">
+                    <button class="user-list__user-follow-button btn btn-outline-primary rounded-pill">フォロー</button>
+                </div>
+            </div>
+            <div class="user-list__user-footer row">
+                <!-- ユーザー自己紹介文 -->
+                <div class="user-list__user-introduction">
+                    <span th:text="*{introduction}"></span>
+                </div>
+            </div>
+        </div>
+        <!-- ユーザー詳細ページへのリンク -->
+        <a th:href="@{|/users/*{id}|}"></a>
+    </div>
 </body>
 
 </html>

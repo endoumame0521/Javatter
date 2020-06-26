@@ -1,0 +1,21 @@
+.user-list {
+  border-bottom: solid 1px #eeeeee;
+  padding: 10px;
+  position: relative;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.user-list a {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.user-list:hover {
+  background-color: #f5f8fa;
+}
+/*# sourceMappingURL=user-list.css.map */

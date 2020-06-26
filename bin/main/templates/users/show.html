@@ -1,52 +1,108 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmls:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
 
 <head>
-    <title>ユーザー登録</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>ユーザー詳細</title>
+    <link rel="stylesheet" th:href="@{/css/users/user-header.css}">
+    <link rel="stylesheet" th:href="@{/css/users/user-info.css}">
 </head>
 
 <body>
-    <table>
-        <tr>
-            <th>名前</th>
-            <td th:text="${user.name}"></td>
-        </tr>
-        <tr>
-            <th>生年月日</th>
-            <td th:text="${#temporals.format(user.birthday, 'yyyy年MM月dd日')}"></td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td th:text="${user.email}"></td>
-        </tr>
-        <tr>
-            <th>プロフィール画像</th>
-            <td th:text="${user.profileImage}"></td>
-        </tr>
-        <tr>
-            <th>背景画像</th>
-            <td th:text="${user.backgroundImage}"></td>
-        </tr>
-        <tr>
-            <th>自己紹介文</th>
-            <td th:text="${user.introduction}"></td>
-        </tr>
-        <tr>
-            <th>位置情報</th>
-            <td th:text="${user.address}"></td>
-        </tr>
-        <tr>
-            <th>WEBサイト</th>
-            <td th:text="${user.webSite}"></td>
-        </tr>
-        <tr>
-            <th>ステータス</th>
-            <td th:text="${user.status}"></td>
-        </tr>
-    </table>
-    <a th:href="@{/users/{id}/edit(id=${user.id})}">編集画面へ</a>
-    <a th:href="@{/users}">一覧画面へ戻る</a>
+    <!-- 戻るボタンとユーザー情報 -->
+    <div class="user-header row pt-1 pb-1" layout:fragment="main-header" th:object="${user}">
+        <!-- 戻るボタン -->
+        <div class="user-header__back-button col-2 pt-1">
+            <div class="btn" onclick="history.back()">
+                <span>←</i></span>
+            </div>
+        </div>
+        <!-- ユーザー情報 -->
+        <div class="user-header__user col-10">
+            <span th:text="*{email}"></span><br>
+            <span th:text="*{name}"></span>
+        </div>
+    </div>
+    <!-- ユーザー情報 -->
+    <div class="user-info row" layout:fragment="main-contents" th:object="${user}">
+        <div class="col-12">
+            <!-- 背景画像 -->
+            <div class="user-info__background row">
+                <span th:text="*{backgroundImage}"></span>
+            </div>
+            <!-- プロフィール画像 -->
+            <div class="user-info__image">
+                <span th:text="*{profileImage}"></span>
+            </div>
+            <div class="user-info__contents row">
+                <div class="col-12">
+                    <!-- 編集画面へのリンク -->
+                    <div class="user-info__contents-edit row justify-content-end">
+                        <!-- ログインしている場合のみ表示 -->
+                        <div sec:authorize="isAuthenticated()">
+                            <!-- ユーザーページがログインユーザーのページかどうか -->
+                            <div th:switch="${user.id == #authentication.principal.user.id}">
+                                <!-- ログインユーザーのページの場合 -->
+                                <div th:case="true">
+                                    <!-- 編集ボタン -->
+                                    <button class="user-info__user-edit-button btn btn-outline-primary rounded-pill">
+                                        <span>プロフィールを編集</span>
+                                        <a th:href="@{|/users/*{id}/edit|}"></a>
+                                    </button>
+                                </div>
+                                <!-- ログインユーザーのページでない場合 -->
+                                <div th:case="false">
+                                    <!-- もっと見るボタン -->
+                                    <button class="user-info__user-more-button btn btn-outline-primary rounded-pill"><i
+                                            class="fas fa-ellipsis-h"></i></button>
+                                    <!-- DMボタン -->
+                                    <button
+                                        class="user-info__user-message-button btn btn-outline-primary rounded-pill"><i
+                                            class="fas fa-envelope"></i></button>
+                                    <!-- フォローボタン -->
+                                    <button
+                                        class="user-info__user-follow-button btn btn-outline-primary rounded-pill">フォロー</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ログインしていない場合のみ表示 -->
+                        <div sec:authorize="!isAuthenticated()">
+                            <!-- フォローボタン -->
+                            <button
+                                class="user-info__user-follow-button btn btn-outline-primary rounded-pill">フォロー</button>
+                        </div>
+                    </div>
+                    <!-- 名前 -->
+                    <div class="user-info__contents-name row">
+                        <span th:text="*{name}"></span>
+                    </div>
+                    <!-- 自己紹介文 -->
+                    <div class="user-info__contents-introduction row" th:if="*{introduction != ''}">
+                        <span th:text="*{introduction}"></span>
+                    </div>
+                    <div class="user-info__contents-others row">
+                        <!-- 現在位置 -->
+                        <i class="fas fa-map-marker-alt"></i><span th:text="*{address}"></span>
+                        <!-- WEBサイト -->
+                        <i class="fas fa-link"></i><span th:text="*{webSite}"></span>
+                        <!-- 誕生日 -->
+                        <i class="fas fa-birthday-cake"></i>誕生日:
+                        <span th:text="*{#temporals.format(birthday, 'yyyy年MM月dd日')}"></span>
+                        <!-- 登録日 -->
+                        <span th:text="*{#temporals.format(createdAt, 'yyy年MM月dd')}"></span>
+                        からJavatterを利用しています
+                    </div>
+                    <!-- フォロー・フォロワー -->
+                    <div class="user-info__contents-relationship row">
+                        <span>120フォロー中</span>
+                        <span>42フォロワー</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ユーザーのツイートリスト -->
+    <div class="user-tweet-list"></div>
 </body>
 
 </html>
