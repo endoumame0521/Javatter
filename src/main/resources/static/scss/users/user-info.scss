@@ -30,7 +30,7 @@ $bgImgHeight: 100vh * 0.5 * 0.45;
     &__contents-edit {
         background-color: gray;
         height: calc((#{$bgImgHeight} * 0.7) * 0.5);
-        padding: calc((#{$bgImgHeight} * 0.7) * 0.5 * 0.2);
+        padding: calc((#{$bgImgHeight} * 0.7) * 0.5 * 0.25);
         margin-bottom: 15px;
 
         button {

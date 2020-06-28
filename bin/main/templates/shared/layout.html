@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmls:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Javatter</title>
+    <script src="/js/jquery-3.5.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/6bb1565f31.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+</head>
+
+<body>
+    <!-- ヘッダー（※未ログイン時のみ表示される） -->
+    <div th:replace="/shared/navbar" sec:authorize="!isAuthenticated()"></div>
+    <!-- メインコンテナー -->
+    <div class="javatter container">
+        <div class="row">
+            <!-- 左メニュー画面（※ログイン時のみ表示される） -->
+            <div class="javatter__menu col-sm-4 col-md-3">
+                <div th:replace="/shared/menu" sec:authorize="isAuthenticated()"></div>
+            </div>
+            <!-- 中央メイン画面 -->
+            <div class="javatter__main col-sm-4 col-md-6">
+                <!-- ログインしている場合のみヘッダー表示 -->
+                <div layout:fragment="main-header" sec:authorize="isAuthenticated()"></div>
+                <!-- メインコンテンツ -->
+                <div layout:fragment="main-contents"></div>
+            </div>
+            <!-- 右インフォ画面 -->
+            <div class="javatter__info col-sm-4 col-md-3">info</div>
+        </div>
+    </div>
+</body>
+
+</html>

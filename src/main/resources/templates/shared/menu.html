@@ -1,0 +1,35 @@
+<nav th:with="currentUser = ${#authentication.principal.user}">
+    <!-- Javatterロゴ -->
+    <i class="fab fa-java fa-3x mb-3"></i>
+    <!-- メニューリスト -->
+    <ul class="javatter__menu-list list-group list-group-flush">
+        <li><i class="fas fa-home"></i>ホーム<a th:href="@{/home}"></a></li>
+        <li><i class="fas fa-users"></i>ユーザー<a th:href="@{/users}"></a></li>
+        <li><i class="fas fa-bell"></i>通知<a th:href="@{/notifications}"></a></li>
+        <li><i class="fas fa-envelope"></i>メッセージ<a th:href="@{/messages}"></a></li>
+        <li><i class="fas fa-bookmark"></i>ブックマーク<a th:href="@{/bookmarks}"></a></li>
+        <li><i class="fas fa-list-alt"></i>リスト<a th:href="@{/tweets}"></a></li>
+        <li><i class="fas fa-user"></i>プロフィール<a th:href="@{|/users/${currentUser.id}|}"></a></li>
+        <li><i class="fas fa-ellipsis-h"></i>もっと見る<a th:href="@{/tweets}"></a></li>
+    </ul>
+    <!-- ツイートするボタン -->
+    <button class="javatter__menu-tweet btn btn-lg btn-primary rounded-pill">
+        <span>ツイートする</span>
+        <a th:href="@{/new_tweet}"></a>
+    </button>
+    <!-- ログインユーザー情報 -->
+    <div class="javatter__menu-principal row">
+        <div class="javatter__menu-principal-image col-sm-6 col-md-4">
+            <span th:text="${currentUser.profileImage}"></span>
+        </div>
+        <div class="javatter__menu-principal-name col-sm-6 col-md-8">
+            <span th:text="${currentUser.email}"></span><br>
+            <span th:text="${currentUser.name}"></span>
+        </div>
+    </div>
+    <!-- ログアウトボタン -->
+    <div class="javatter__menu-logout">
+        <span>ログアウト</span>
+        <a th:href="@{/logout}"></a>
+    </div>
+</nav>
