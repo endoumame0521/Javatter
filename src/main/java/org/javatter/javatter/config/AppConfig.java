@@ -1,12 +1,12 @@
 package org.javatter.javatter.config;
 
 import org.javatter.javatter.converter.UserConverter;
-import org.javatter.javatter.interceptor.RedirectNotCurrentUserInterceptor;
+import org.javatter.javatter.initialize.InsertUserData;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 // Springにbeanとして登録して@Autowiredで使用できるようにする
 // 同時にModelMapperの初期設定を定義
@@ -27,9 +27,13 @@ public class AppConfig {
         return new UserConverter();
     }
 
-    // interceptorをBeanに登録
+    // application.propertiesの値を取得
+    @Value("${spring.jpa.hibernate.ddl-auto}")
+    private String PROPERTY_DDL_AUTO;
+
+    // application.prppertiesのddl-autoがcreateの場合のみDBへの初期データ投入を実施
     @Bean
-    public HandlerInterceptor redirectNotCurrentUserInterceptor() throws Exception {
-        return new RedirectNotCurrentUserInterceptor();
+    public InsertUserData InsertInitialData() {
+        return ("create".equals(this.PROPERTY_DDL_AUTO)) ? new InsertUserData() : null;
     }
 }
