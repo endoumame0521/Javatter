@@ -1,83 +1,113 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html layout:decorate="~{/users/show}">
 
 <head>
     <title>ユーザー登録</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- ページアクセス時に自動でモーダルの起動ボタンをクリックする設定 -->
+    <script>
+        $(document).ready(function () {
+            $("#edit").trigger('click');
+        });
+    </script>
 </head>
 
 <body>
-    <form th:object="${userUpdateForm}" th:action="@{/users/{id}(id=*{id})}" th:method="put">
-        <table>
-            <tr>
-                <th>名前</th>
-                <td><input type="text" th:field="*{name}"></td>
-                <td><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span></td>
-            </tr>
-            <tr>
-                <th>生年月日</th>
-                <td>
-                    <select th:field="*{birthY}">
-                        <option th:each="i : ${#numbers.sequence(1940, 2010)}" th:value="${i}" th:text="${i}">
-                        </option>
-                    </select>年
+    <div layout:fragment="edit">
 
-                    <select th:field="*{birthM}">
-                        <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}">
-                        </option>
-                    </select>月
+        <!-- モーダルウィンドウの設定 -->
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">プロフィールを編集</h5>
+                        <button onclick="history.back()" type="button" class="close" data-dismiss="modal"
+                            aria-label="閉じる">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form th:object="${userUpdateForm}" th:action="@{/users/{id}(id=*{id})}" th:method="put">
+                        <div class="modal-body">
+                            <table>
+                                <tr>
+                                    <th>名前</th>
+                                    <td><input type="text" th:field="*{name}"></td>
+                                    <td><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>生年月日</th>
+                                    <td>
+                                        <select th:field="*{birthY}">
+                                            <option th:each="i : ${#numbers.sequence(1940, 2010)}" th:value="${i}" th:text="${i}">
+                                            </option>
+                                        </select>年
 
-                    <select th:field="*{birthD}">
-                        <option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}" th:text="${i}">
-                        </option>
-                    </select>日
-                </td>
-                    <span th:if="${#fields.hasErrors('birthY')}" th:errors="*{birthY}"></span>
-                    <span th:if="${#fields.hasErrors('birthM')}" th:errors="*{birthM}"></span>
-                    <span th:if="${#fields.hasErrors('birthD')}" th:errors="*{birthD}"></span>
-                <td>
+                                        <select th:field="*{birthM}">
+                                            <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}">
+                                            </option>
+                                        </select>月
 
-                </td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td><input type="text" th:field="*{email}"></td>
-                <td><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></td>
-            </tr>
-            <tr>
-                <th>プロフィール画像</th>
-                <td><input type="text" th:field="*{profileImage}"></td>
-                <td><span th:if="${#fields.hasErrors('profileImage')}" th:errors="*{profileImage}"></span></td>
-            </tr>
-            <tr>
-                <th>背景画像</th>
-                <td><input type="text" th:field="*{backgroundImage}"></td>
-                <td><span th:if="${#fields.hasErrors('backgroundImage')}" th:errors="*{backgroundImage}"></span></td>
-            </tr>
-            <tr>
-                <th>自己紹介文</th>
-                <td><input type="text" th:field="*{introduction}"></td>
-                <td><span th:if="${#fields.hasErrors('introduction')}" th:errors="*{introduction}"></span></td>
-            </tr>
-            <tr>
-                <th>位置情報</th>
-                <td><input type="text" th:field="*{address}"></td>
-                <td><span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span></td>
-            </tr>
-            <tr>
-                <th>WEBサイト</th>
-                <td><input type="text" th:field="*{webSite}"></td>
-                <td><span th:if="${#fields.hasErrors('webSite')}" th:errors="*{webSite}"></span></td>
-            </tr>
-            <tr>
-                <th>ステータス</th>
-                <td><input type="text" th:field="*{status}"></td>
-                <td><span th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></span></td>
-            </tr>
-        </table>
-        <input type="submit" value="更新">
-        <a th:href="@{/users}">一覧画面へ戻る</a>
-    </form>
+                                        <select th:field="*{birthD}">
+                                            <option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}" th:text="${i}">
+                                            </option>
+                                        </select>日
+                                    </td>
+                                        <span th:if="${#fields.hasErrors('birthY')}" th:errors="*{birthY}"></span>
+                                        <span th:if="${#fields.hasErrors('birthM')}" th:errors="*{birthM}"></span>
+                                        <span th:if="${#fields.hasErrors('birthD')}" th:errors="*{birthD}"></span>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td><input type="text" th:field="*{email}"></td>
+                                    <td><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>プロフィール画像</th>
+                                    <td><input type="text" th:field="*{profileImage}"></td>
+                                    <td><span th:if="${#fields.hasErrors('profileImage')}" th:errors="*{profileImage}"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>背景画像</th>
+                                    <td><input type="text" th:field="*{backgroundImage}"></td>
+                                    <td><span th:if="${#fields.hasErrors('backgroundImage')}" th:errors="*{backgroundImage}"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>自己紹介文</th>
+                                    <td><textarea rows="5" th:field="*{introduction}"></textarea></td>
+                                    <td><span th:if="${#fields.hasErrors('introduction')}" th:errors="*{introduction}"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>位置情報</th>
+                                    <td><input type="text" th:field="*{address}"></td>
+                                    <td><span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>WEBサイト</th>
+                                    <td><input type="text" th:field="*{webSite}"></td>
+                                    <td><span th:if="${#fields.hasErrors('webSite')}" th:errors="*{webSite}"></span></td>
+                                </tr>
+                                <tr>
+                                    <th>ステータス</th>
+                                    <td><input type="text" th:field="*{status}"></td>
+                                    <td><span th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button onclick="history.back()" type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                            <input type="submit" value="保存" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- 切り替えボタンの設定 -->
+        <button id="edit" type="button" style="display: none" data-toggle="modal" data-target="#exampleModalLong"></button>
+    </div>
 </body>
 
 </html>

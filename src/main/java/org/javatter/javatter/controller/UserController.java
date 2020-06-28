@@ -86,6 +86,7 @@ public class UserController {
         // エンティティの各データをフォームにセット
         userConverter.entityToForm(user, userUpdateForm);
         model.addAttribute("userUpdateForm", userUpdateForm);
+        model.addAttribute("user", user);
         return "users/edit";
     }
 
