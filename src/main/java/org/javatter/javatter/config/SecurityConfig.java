@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         webSecurity
             .debug(false)
             .ignoring()
-            .antMatchers("/css/**", "/js/**", "images/**");
+            .antMatchers("/css/**", "/js/**", "/images/**");
         // @formatter:on
     }
 

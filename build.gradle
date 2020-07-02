@@ -39,6 +39,8 @@ dependencies {
 	compile "org.modelmapper:modelmapper:2.3.0"
 	// thymeleafのlayout共通機能を使用する為
 	compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect"
+	// 画像ファイルのデータをバイト配列にする為にFileUtilsを使用する為
+	compile 'commons-io:commons-io:2.7'
 }
 
 test {

@@ -8,30 +8,36 @@ $bgImgHeight: 100vh * 0.5 * 0.45;
     border-bottom: solid 1px #eeeeee;
 
     &__background {
-        background-color: limegreen;
         height: calc(#{$bgImgHeight});
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
     }
 
     &__image {
         position: absolute;
-        height: calc(#{$bgImgHeight} * 0.7);
-        width: calc(#{$bgImgHeight} * 0.7);
-        border-radius: 50%;
-        background-color: yellow;
         top: calc(#{$bgImgHeight} - (#{$bgImgHeight} * 0.7) * 0.5);
         left: 20px;
         z-index: 1;
+        img {
+            border: #fff 5px solid;
+            object-fit: cover;
+            border-radius: 50%;
+            height: calc(#{$bgImgHeight} * 0.7);
+            width: calc(#{$bgImgHeight} * 0.7);
+        }
     }
 
     &__contents {
-        padding: 10px;
+        padding: 20px;
     }
 
     &__contents-edit {
-        background-color: gray;
-        height: calc((#{$bgImgHeight} * 0.7) * 0.5);
-        padding: calc((#{$bgImgHeight} * 0.7) * 0.5 * 0.25);
-        margin-bottom: 15px;
+        height: calc((#{$bgImgHeight} * 0.7) * 0.4);
+        padding: calc((#{$bgImgHeight} * 0.7) * 0.4 * 0.2);
+        margin-bottom: 10px;
 
         button {
             position: relative;
@@ -49,19 +55,16 @@ $bgImgHeight: 100vh * 0.5 * 0.45;
     }
 
     &__contents-name {
-        background-color: blue;
         margin-bottom: 15px;
-        font-size: 20px;
+        font-size: 21px;
         font-weight: bold;
     }
 
     &__contents-introduction {
-        background-color: orange;
         margin-bottom: 15px;
     }
 
     &__contents-others {
-        background-color: pink;
         margin-bottom: 15px;
         color: rgb(101, 119, 134);
 
@@ -75,7 +78,6 @@ $bgImgHeight: 100vh * 0.5 * 0.45;
     }
 
     &__contents-relationship {
-        background-color: greenyellow;
 
         span {
             margin-right: 15px;

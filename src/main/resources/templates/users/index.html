@@ -19,7 +19,8 @@
     <div class="user-list row" layout:fragment="main-contents" th:each="user : ${users}" th:object="${user}">
         <!-- プロフィール画像 -->
         <div class="user-list__user-image col-2">
-            <span th:text="*{profileImage}"></span>
+            <img th:if="*{profileName != null}" th:src="@{|/images/uploads/*{profileName}.jpg|}">
+            <img th:if="*{profileName == null}" th:src="@{/images/no_image.jpg}">
         </div>
         <div class="user-list__user-contents col-10 pl-5">
             <div class="user-list__user-header row">

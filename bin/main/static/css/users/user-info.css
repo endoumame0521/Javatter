@@ -4,30 +4,40 @@
 }
 
 .user-info__background {
-  background-color: limegreen;
   height: calc(22.5vh);
+}
+
+.user-info__background img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .user-info__image {
   position: absolute;
-  height: calc(22.5vh * 0.7);
-  width: calc(22.5vh * 0.7);
-  border-radius: 50%;
-  background-color: yellow;
   top: calc(22.5vh - (22.5vh * 0.7) * 0.5);
   left: 20px;
   z-index: 1;
 }
 
+.user-info__image img {
+  border: #fff 5px solid;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  height: calc(22.5vh * 0.7);
+  width: calc(22.5vh * 0.7);
+}
+
 .user-info__contents {
-  padding: 10px;
+  padding: 20px;
 }
 
 .user-info__contents-edit {
-  background-color: gray;
-  height: calc((22.5vh * 0.7) * 0.5);
-  padding: calc((22.5vh * 0.7) * 0.5 * 0.25);
-  margin-bottom: 15px;
+  height: calc((22.5vh * 0.7) * 0.4);
+  padding: calc((22.5vh * 0.7) * 0.4 * 0.2);
+  margin-bottom: 10px;
 }
 
 .user-info__contents-edit button {
@@ -45,19 +55,16 @@
 }
 
 .user-info__contents-name {
-  background-color: blue;
   margin-bottom: 15px;
-  font-size: 20px;
+  font-size: 21px;
   font-weight: bold;
 }
 
 .user-info__contents-introduction {
-  background-color: orange;
   margin-bottom: 15px;
 }
 
 .user-info__contents-others {
-  background-color: pink;
   margin-bottom: 15px;
   color: #657786;
 }
@@ -68,10 +75,6 @@
 
 .user-info__contents-others span {
   margin-right: 15px;
-}
-
-.user-info__contents-relationship {
-  background-color: greenyellow;
 }
 
 .user-info__contents-relationship span {

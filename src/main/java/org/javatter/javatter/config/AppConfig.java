@@ -1,5 +1,6 @@
 package org.javatter.javatter.config;
 
+import org.javatter.javatter.converter.FileEncoder;
 import org.javatter.javatter.converter.UserConverter;
 import org.javatter.javatter.initialize.InsertUserData;
 import org.modelmapper.ModelMapper;
@@ -25,6 +26,11 @@ public class AppConfig {
     @Bean
     public UserConverter userConverter() {
         return new UserConverter();
+    }
+
+    @Bean
+    public FileEncoder fileEncoder() {
+        return new FileEncoder();
     }
 
     // application.propertiesの値を取得

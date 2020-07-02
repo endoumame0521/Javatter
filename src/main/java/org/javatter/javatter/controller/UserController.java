@@ -81,7 +81,6 @@ public class UserController {
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, Model model) {
         User user = userService.getUser(id);
-
         UserUpdateForm userUpdateForm = new UserUpdateForm();
         // エンティティの各データをフォームにセット
         userConverter.entityToForm(user, userUpdateForm);
@@ -92,8 +91,11 @@ public class UserController {
 
     @RedirectNotCurrentUser
     @PutMapping("/{id}")
-    public String update(@PathVariable Long id, @Validated UserUpdateForm userUpdateForm, BindingResult bindingResult) {
+    public String update(@PathVariable Long id, @Validated UserUpdateForm userUpdateForm, BindingResult bindingResult,
+            Model model) {
         if (bindingResult.hasErrors()) {
+            User user = userService.getUser(id);
+            model.addAttribute("user", user);
             return "users/edit";
         }
         userService.updateUser(id, userUpdateForm);

@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.URL;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,11 +25,13 @@ public class UserUpdateForm extends UserForm {
     @URL
     private String webSite;
 
-    @Size(max = 200)
-    private String profileImage;
+    private MultipartFile profImgFile;
 
-    @Size(max = 200)
-    private String backgroundImage;
+    private String profileName;
+
+    private MultipartFile bgImgFile;
+
+    private String backgroundName;
 
     @NotNull
     private Boolean status;

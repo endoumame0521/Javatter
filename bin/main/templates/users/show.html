@@ -29,11 +29,13 @@
             <div class="col-12">
                 <!-- 背景画像 -->
                 <div class="user-info__background row">
-                    <span th:text="*{backgroundImage}"></span>
+                    <img th:if="*{backgroundName != null}" th:src="@{|/images/uploads/*{backgroundName}.jpg|}">
+                    <img th:if="*{backgroundName == null}" th:src="@{/images/no_background.jpg}">
                 </div>
                 <!-- プロフィール画像 -->
                 <div class="user-info__image">
-                    <span th:text="*{profileImage}"></span>
+                    <img th:if="*{profileName != null}" th:src="@{|/images/uploads/*{profileName}.jpg|}">
+                    <img th:if="*{profileName == null}" th:src="@{/images/no_image.jpg}">
                 </div>
                 <div class="user-info__contents row">
                     <div class="col-12">

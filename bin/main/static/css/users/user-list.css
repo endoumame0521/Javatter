@@ -15,6 +15,18 @@
   height: 100%;
 }
 
+.user-list__user-image img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
+.user-list__user-follow {
+  z-index: 1;
+}
+
 .user-list:hover {
   background-color: #f5f8fa;
 }

@@ -54,9 +54,9 @@ public class User extends AbstractEntity {
 
     private String webSite;
 
-    private String profileImage;
+    private String profileName;
 
-    private String backgroundImage;
+    private String backgroundName;
 
     // 権限を管理するカラムを定義（データは文字列のカンマ区切りで格納する）
     @Column(nullable = false)

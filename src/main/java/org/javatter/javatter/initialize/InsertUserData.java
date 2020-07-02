@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 // DBへの初期データ投入
 public class InsertUserData {
-
         @Autowired
         UserRepository repository;
 
@@ -60,8 +59,8 @@ public class InsertUserData {
                 user.setAddress(address);
                 user.setIntroduction(introduction);
                 user.setWebSite(webSite);
-                user.setProfileImage(profileImage);
-                user.setBackgroundImage(backgroundImage);
+                // user.setProfileImage(profileImage);
+                // user.setBackgroundImage(backgroundImage);
                 this.repository.save(user);
         }
 
